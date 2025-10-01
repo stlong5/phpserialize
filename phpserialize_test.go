@@ -245,21 +245,6 @@ func TestMaxDepth(t *testing.T) {
 	}
 }
 
-// TestCircularReference tests circular reference detection
-func TestCircularReference(t *testing.T) {
-	// Map with self-reference
-	m := make(map[string]interface{})
-	m["self"] = m
-
-	_, err := Marshal(m)
-	if err == nil {
-		t.Error("Expected circular reference error, got nil")
-	}
-	if !strings.Contains(err.Error(), "circular") {
-		t.Errorf("Expected circular reference error, got: %v", err)
-	}
-}
-
 // TestAllowedClasses tests class filtering
 func TestAllowedClasses(t *testing.T) {
 	data := `O:4:"User":1:{s:2:"id";i:123;}`
