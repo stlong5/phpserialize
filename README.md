@@ -1,5 +1,7 @@
 # PHP Serialize for Go
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/stlong5/phpserialize.svg)](https://pkg.go.dev/github.com/stlong5/phpserialize)
+
 A robust Go package that provides PHP-compatible serialize (`Marshal`) and unserialize (`Unmarshal`) functions. This
 library is designed for reliable data exchange between Go and PHP applications, particularly when dealing with
 persistent data formats like session data or database-stored serialized values.
