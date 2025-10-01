@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("=== PHP Serialize/Unserialize Examples ===\n")
+	fmt.Println("=== PHP Serialize/Unserialize Examples ===")
 
 	// Example 1: Basic Types
 	example1()
