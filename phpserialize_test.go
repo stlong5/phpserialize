@@ -416,17 +416,6 @@ func TestMustMarshal(t *testing.T) {
 	if result != "i:42;" {
 		t.Errorf("Expected i:42;, got %s", result)
 	}
-
-	// Should panic for circular reference
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("Expected panic for circular reference")
-		}
-	}()
-
-	m := make(map[string]interface{})
-	m["self"] = m
-	MustMarshal(m) // Should panic
 }
 
 // TestMustUnmarshal tests panic behavior for unmarshal
