@@ -463,9 +463,9 @@ func TestIntegerKeys(t *testing.T) {
 
 // TestPHPPrivateProperties tests handling of PHP private/protected properties
 func TestPHPPrivateProperties(t *testing.T) {
-	// PHP private property format: \0ClassName\0propertyName
-	// PHP protected property format: \0*\0propertyName
-	phpData := `O:4:"User":2:{s:7:"\0User\0id";i:123;s:11:"\0*\0password";s:6:"secret";}`
+	// PHP private property format: \x00ClassName\x00propertyName
+	// PHP protected property format: \x00*\x00propertyName
+	phpData := "O:4:\"User\":2:{s:8:\"\x00User\x00id\";i:123;s:11:\"\x00*\x00password\";s:6:\"secret\";}"
 
 	result, err := Unmarshal(phpData)
 	if err != nil {
@@ -479,11 +479,11 @@ func TestPHPPrivateProperties(t *testing.T) {
 
 	// Property names should have visibility markers stripped
 	if _, hasId := obj.Properties["id"]; !hasId {
-		t.Error("Expected 'id' property (stripped of \\0User\\0)")
+		t.Error("Expected 'id' property (stripped of \\x00User\\x00)")
 	}
 
 	if _, hasPass := obj.Properties["password"]; !hasPass {
-		t.Error("Expected 'password' property (stripped of \\0*\\0)")
+		t.Error("Expected 'password' property (stripped of \\x00*\\x00)")
 	}
 }
 
@@ -595,7 +595,7 @@ func TestGetStringLength(t *testing.T) {
 		{"hello", 5},
 		{"", 0},
 		{"Hello 世界", 12}, // UTF-8: 3 bytes per Chinese character
-		{"😀", 4},         // UTF-8: 4 bytes for emoji
+		{"😀", 4},           // UTF-8: 4 bytes for emoji
 	}
 
 	for _, tt := range tests {
@@ -733,7 +733,7 @@ func TestRealWorldPHPData(t *testing.T) {
 		`a:3:{s:5:"users";a:1:{i:0;a:2:{s:2:"id";i:1;s:4:"name";s:4:"John";}}s:5:"total";i:1;s:4:"page";i:1;}`,
 
 		// Session data
-		`a:4:{s:7:"user_id";i:123;s:8:"username";s:8:"john_doe";s:10:"logged_in";b:1;s:10:"last_visit";i:1609459200;}`,
+		`a:4:{s:7:"user_id";i:123;s:8:"username";s:8:"john_doe";s:9:"logged_in";b:1;s:10:"last_visit";i:1609459200;}`,
 	}
 
 	for i, phpData := range realWorldExamples {
