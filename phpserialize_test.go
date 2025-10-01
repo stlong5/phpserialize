@@ -595,7 +595,7 @@ func TestGetStringLength(t *testing.T) {
 		{"hello", 5},
 		{"", 0},
 		{"Hello 世界", 12}, // UTF-8: 3 bytes per Chinese character
-		{"😀", 4},           // UTF-8: 4 bytes for emoji
+		{"😀", 4},         // UTF-8: 4 bytes for emoji
 	}
 
 	for _, tt := range tests {
